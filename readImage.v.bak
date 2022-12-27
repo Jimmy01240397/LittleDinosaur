@@ -1,0 +1,7 @@
+module readImage(out);
+
+output reg [80:0]out[0:40];
+
+$readmemb("./imageConverter/dinosaur.txt", out);
+
+endmodule
