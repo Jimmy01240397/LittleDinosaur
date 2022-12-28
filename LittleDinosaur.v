@@ -19,7 +19,7 @@ initial
 		indexDinosourImg = 0;
 		indexCactusImg = 0;
 		$readmemb("./imageConverter/dinosaur.txt", dinosourImg);
-		$readmemb("./imageConverter/dinosaur.txt", cactusImg);
+		$readmemb("./imageConverter/cactus.txt", cactusImg);
 	end
 
 always @(posedge cnt)
