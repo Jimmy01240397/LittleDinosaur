@@ -1,16 +1,22 @@
-module readImage(index, out);
+`include "define.v"
 
-input [31:0]index;
-
-output [79:0]out;
-
-reg [79:0]img[0:40]; // image size
-
-initial
+task readImage ;
+	output [`imagecount*`imagewidth*`imageheight-1:0] image;
+	reg [`imagewidth-1:0] tmp[0:`imageheight];
+	integer i;
+	integer k;
 	begin
-		$readmemb("./imageConverter/dinosaur.txt", img);
+		for(i=0; i < `imagewidth; i=i+1)
+		begin
+			case(i)
+				0: $readmemb("./imageConverter/dinosaur.txt", tmp);
+				1: $readmemb("./imageConverter/cactus.txt", tmp);
+			endcase
+
+			for(k=0; k < `imageheight; k=k+1)
+			begin
+				image[i*`imageheight + k] = tmp[k];
+			end
+		end
 	end
-	
-assign out = img[index];
-	
-endmodule
+endtask
