@@ -9,6 +9,7 @@ output reg [14:0]vga;
 wire [`imagecount*`imagewidth*`imageheight-1:0]image;
 wire [(`datatypelen+`dataxlen+`dataylen+`datawidthlen+`dataheigthlen)*`datacount-1:0] gamedata;
 wire clk1, clk2, clk3;
+wire togenerate;
 
 initial
 begin
@@ -16,10 +17,7 @@ begin
 end
 
 Freq_Div(.clock(clock), .clk1(clk1), .clk2(clk2), .clk3(clk3));
-
-
-
-display(.clock(clk1), .reset(rst), .image(image), .gamedata(gamedata), .vga(vga));
+check_gen_enemy(.clk3(clk3), .reset(rst), .togenerate(togenerate));
 
 
 endmodule 

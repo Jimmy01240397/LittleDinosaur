@@ -23,4 +23,7 @@
 	`define dataheigthlen 10
 	
 	`define scorelen 13
+
+	// --- main function ---
+	`define y_movemevt_per_frame 1
 `endif
