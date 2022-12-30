@@ -115,10 +115,6 @@ begin
 					disable loop;
 				end
 			end
-			else
-			begin
-				disable loop;
-			end
 		end
 		
 		if(!check)
