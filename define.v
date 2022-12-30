@@ -15,6 +15,10 @@
 	`define imagewidth 80
 	`define imageheight 40
 	
+	`define playerxPos 80
+	`define playeryPos 340
+	`define playerFloatingPos 260
+	`define jumpDuration 2
 	
 	`define datacount 10
 	
