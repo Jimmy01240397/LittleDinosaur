@@ -58,7 +58,25 @@ set_global_assignment -name PARTITION_FITTER_PRESERVATION_LEVEL PLACEMENT_AND_RO
 set_global_assignment -name PARTITION_COLOR 16764057 -section_id Top
 set_global_assignment -name POWER_PRESET_COOLING_SOLUTION "23 MM HEAT SINK WITH 200 LFPM AIRFLOW"
 set_global_assignment -name POWER_BOARD_THERMAL_MODEL "NONE (CONSERVATIVE)"
+set_location_assignment PIN_M9 -to clock
+set_location_assignment PIN_P22 -to rst
+set_location_assignment PIN_G8 -to vga[13]
+set_location_assignment PIN_H8 -to vga[12]
+set_location_assignment PIN_A7 -to vga[11]
+set_location_assignment PIN_A8 -to vga[10]
+set_location_assignment PIN_B7 -to vga[9]
+set_location_assignment PIN_B6 -to vga[8]
+set_location_assignment PIN_J8 -to vga[7]
+set_location_assignment PIN_J7 -to vga[6]
+set_location_assignment PIN_K7 -to vga[5]
+set_location_assignment PIN_L7 -to vga[4]
+set_location_assignment PIN_A5 -to vga[3]
+set_location_assignment PIN_C9 -to vga[2]
+set_location_assignment PIN_B10 -to vga[1]
+set_location_assignment PIN_A9 -to vga[0]
 set_global_assignment -name VERILOG_FILE LittleDinosaur.v
 set_global_assignment -name VERILOG_FILE display.v
 set_global_assignment -name VERILOG_FILE define.v
+set_global_assignment -name VERILOG_FILE readImage.v
+set_global_assignment -name VECTOR_WAVEFORM_FILE Waveform.vwf
 set_instance_assignment -name PARTITION_HIERARCHY root_partition -to | -section_id Top
