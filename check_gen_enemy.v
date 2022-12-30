@@ -2,6 +2,6 @@
 
 module check_gen_enemy(clk3, reset, togenerate);
     input       clk3, reset;
-    output reg  togenerate;
+    output  togenerate;
     GARO(.clk(clk3), .reset(reset), .random(togenerate));
-endmodule
+endmodule 

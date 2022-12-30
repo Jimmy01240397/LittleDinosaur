@@ -1,34 +1,53 @@
 `include "define.v"
-module update_player(clk3,jump,player);
-input jump;
-input clk3;
-output [43:0] player;
-reg [9:0] count;
-reg [43:0] player;
+module update_player(clk3,reset,jump,player);
+input clk3, reset, jump;
+output reg [`datalen - 1:0] player;
 reg floating = 0;
-always@(posedge jump or posedge clk3)
+
+integer count;
+always@(negedge jump or posedge clk3 or negedge reset)
 begin
-	player[0:3]=4'b1111; //object type
-	player[4:13]=`playerxPos;//player_position_x
-	player[14:23]=`playeryPos;//player_position_y
-	player[24:33]=`imagewidth;//player_width
-	player[34:43]=`imageheight;//player_height
-	if(floating)
+	if(!reset || !jump || clk3)
 	begin
-		count=count+10'd1;
+		player[`datatypestart +: `datatypelen]<=`playertype; //object type
+		player[`dataxstart +: `dataxlen]<=`playerxPos;//player_position_x
+		player[`datawidthstart +: `datawidthlen]<=`playerwidth;//player_width
+		player[`dataheightstart +: `dataheightlen]<=`playerheight;//player_height
 	end
-	if(jump)
+	
+	if(!reset)
+	begin
+		floating <= 0;
+		count = 0;
+	end
+	else if(!jump)
 	begin
 		if(!floating)
 		begin
-			floating<=1;
-			player[14:23]<=`playerFloatingPos;
+			floating <= 1;
+			count = 0;
 		end
 	end
-	if(count>=120)
+	
+	if(clk3)
 	begin
-		floating<=0;
-		player[14:23]<=`playeryPos;
+		if(floating)
+		begin
+			count=count+10'd1;
+			if(count>=`gameHz*`jumpDuration)
+			begin
+				floating<=0;
+				count = 0;
+			end
+		end
+	end
+	
+	if(!reset || !jump || clk3)
+	begin
+		if(floating)
+			player[`dataystart +: `dataylen]<=`playerFloatingPos;//jump
+		else
+			player[`dataystart +: `dataylen]<=`playeryPos;//player_position_y
 	end
 end
-endmodule
+endmodule 
