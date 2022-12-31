@@ -11,6 +11,7 @@
 	`define screenwidthnumlen 30
 	`define screenheightnumlen 30
 
+	`define nulltype 0;
 	`define playertype 1
 	`define enemytype 2
 	
@@ -42,6 +43,8 @@
 	
 	`define scorelen 13
 
-	// --- main function ---
-	`define y_movemevt_per_frame 1
+	`define enemymovementperframe 1
+	`define enemywidthinit 40
+	`define enemyheightinit 80
+	`define enemyyPos `playeryPos
 `endif
