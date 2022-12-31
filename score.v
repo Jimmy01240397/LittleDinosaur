@@ -1,5 +1,6 @@
 module score(clk2, reset, score, seven1, seven2, dot_col, dot_row);
-input clk2, reset, score;
+input clk2, reset; 
+input [12:0]score;
 output [6:0]seven1;
 output [6:0]seven2;
 output [7:0]dot_col; 
@@ -60,7 +61,7 @@ begin
 		endcase
 		
 		
-		//dot matrix
+		//dot matrix'd
 		row_count <= row_count + 1;
 		case (row_count)
 			0: dot_row <= 8'b01111111;
