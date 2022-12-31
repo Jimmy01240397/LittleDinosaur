@@ -1,4 +1,4 @@
-module GARO (input clk, reset, output random);
+module GARO (input clk, output random);
 
 (* OPTIMIZE="OFF" *)                    //stop *xilinx* tools optimizing this away
 wire [31:1] stage /* synthesis keep */; //stop *altera* tools optimizing this away
@@ -7,16 +7,10 @@ reg meta1, meta2;
 assign random = meta2;
 
 always@(posedge clk or negedge reset)
-if(!reset)
-  begin
-    meta1 <= 1'b0;
-    meta2 <= 1'b0;
-  end
-else if(clk)
-  begin
+begin
     meta1 <= stage[1];
     meta2 <= meta1;
-  end
+end
 
 assign stage[1] = ~&{stage[2] ^ stage[1]};
 assign stage[2] = !stage[3];

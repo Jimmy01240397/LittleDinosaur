@@ -11,7 +11,7 @@
 	`define screenwidthnumlen 30
 	`define screenheightnumlen 30
 
-	`define nulltype 0;
+	`define nulltype 0
 	`define playertype 1
 	`define enemytype 2
 	
