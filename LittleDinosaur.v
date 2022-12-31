@@ -18,7 +18,7 @@ readImage(.clock(clock), .image(image));
 update_player(.clk3(clk3), .reset(rst), .jump(jump), .player(gamedata[0 +: `datalen]));
 
 display(.clock(clk1), .reset(rst), .image(image), .gamedata(gamedata), .vga(vga));
-enemy(.clk3(clk3), .gamedata(gamedata[9 * `datalen +: `datalen]));
+enemy(.clk3(clk3), .gamedata(gamedata[(`datacount - 1)* `datalen +: `datalen]));
 
 
 endmodule 

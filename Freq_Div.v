@@ -1,6 +1,5 @@
 `include "define.v"
 
-
 module Freq_Div(clock,clk1,clk2,clk3);
 input clock;
 output reg clk1, clk2, clk3;

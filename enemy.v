@@ -2,15 +2,15 @@
 
 module enemy(clk3, gamedata);
     input clk3;
-    inout reg [44 * 9:0] gamedata;
+    inout reg [`datalen * (`datacount - 1):0] gamedata;
     reg [3:0] i;
     reg [3:0] j;
     reg togenerate;
 
-    check_gen_enemy(gamedata, togenerate);
+    check_gen_enemy(clk3, togenerate);
     always@(posedge clk3)
     begin
-        for (i = 0; i < 9; i = i + 1)
+        for (i = 0; i < `datacount - 1; i = i + 1)
         begin :loop
             if(gamedata[i*`datalen+`datatypestart +: `datatypelen] == `enemytype)
                 begin
@@ -27,19 +27,19 @@ module enemy(clk3, gamedata);
 		  
 		  if (togenerate)
 		  begin
-		       for (j = 0; j < 9; j = j + 1)
-             begin :loop
-                if(!gamedata[j * `datalen +`datatypestart +: `datatypelen])
-                begin
-                    gamedata[j  *   `datalen + `datatypestart    +: `datatypelen]   <= `enemytype;
-                    gamedata[j  *   `datalen + `dataxstart       +: `dataxlen]      <= `screenwidth;
-                    gamedata[j  *   `datalen + `dataystart       +: `dataylen]      <= `playeryPos;
-                    gamedata[j  *   `datalen + `datawidthstart   +: `datawidthlen]  <= `enemywidthinit;
-                    gamedata[j  *   `datalen + `dataheightstart  +: `dataheightlen] <= `enemyheightinit;
-                    disable loop;
-                end
-              end
-				  togenerate = ~togenerate;
+		       for (j = 0; j < `datacount - 1; j = j + 1)
+               begin :loop
+                   if(!gamedata[j * `datalen +`datatypestart +: `datatypelen])
+                   begin
+                       gamedata[j  *   `datalen + `datatypestart    +: `datatypelen]   <= `enemytype;
+                       gamedata[j  *   `datalen + `dataxstart       +: `dataxlen]      <= `screenwidth;
+                       gamedata[j  *   `datalen + `dataystart       +: `dataylen]      <= `enemyyPos;
+                       gamedata[j  *   `datalen + `datawidthstart   +: `datawidthlen]  <= `enemywidthinit;
+                       gamedata[j  *   `datalen + `dataheightstart  +: `dataheightlen] <= `enemyheightinit;
+			           togenerate = ~togenerate;
+                       disable loop;
+                   end
+               end
 		   end
 
     end
