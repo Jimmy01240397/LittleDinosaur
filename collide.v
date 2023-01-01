@@ -22,29 +22,20 @@ always@(posedge clk3 or negedge reset)begin
 		end
 		for(i = 1; i <= `datacount - 1; i = i + 1)
 		begin
-			if(data[i][`datatypestart +: `datatypelen] == `enemytype)
+			if(!collide && data[i][`datatypestart +: `datatypelen] == `enemytype)
 			begin
 				// p.x+p.width<e.x or e.x+e.width<p.x => X not collide
-				if(((data[0][`dataxstart +: `dataxlen] + data[0][`datawidthstart +: `datawidthlen]) < data[i][`dataxstart +: `dataxlen])
-				|| ((data[i][`dataxstart +: `dataxlen] + data[i][`datawidthstart +:`datawidthlen]) < data[0][`dataxstart +: `dataxlen]))
-				begin
-					collideX <= 0;
-				end
-				else
-				begin
-					collideX <= 1;
-				end
 				
+				collideX <= !(
+									 ((data[0][`dataxstart +: `dataxlen] + data[0][`datawidthstart +: `datawidthlen]) < data[i][`dataxstart +: `dataxlen])
+							    || ((data[i][`dataxstart +: `dataxlen] + data[i][`datawidthstart +: `datawidthlen]) < data[0][`dataxstart +: `dataxlen])
+								 );
+								
 				// p.y+p.height<e.y or e.y+e.height<p.y => Y not collide
-				if(((data[0][`dataystart +: `dataylen] + data[0][`dataheightstart +: `dataheightlen]) < data[i][`dataystart +: `dataylen])
-				|| ((data[i][`dataystart +: `dataylen] + data[i][`dataheightstart +: `dataheightlen]) < data[0][`dataystart +: `dataylen]))
-				begin
-					collideY <= 0;
-				end
-				else
-				begin
-					collideY <= 1;
-				end
+				collideY <= !(
+									 ((data[0][`dataystart +: `dataylen] + data[0][`dataheightstart +: `dataheightlen]) < data[i][`dataystart +: `dataylen])
+								 || ((data[i][`dataystart +: `dataylen] + data[i][`dataheightstart +: `dataheightlen]) < data[0][`dataystart +: `dataylen])
+								 );
 				collide <= (collideX & collideY);
 			end
 		end

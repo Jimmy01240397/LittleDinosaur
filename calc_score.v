@@ -4,16 +4,16 @@ output reg [`scorelen : 0] score;
 
 reg frameCnt;
 
-always@(posedge clk3 or negedge reset or negedge pause)
+always@(posedge clk3 or negedge reset)
 begin
-	if(!pause)
+	if(!reset)
 	begin
-		if(!reset)
-		begin
-			score <= 0;
-			frameCnt <= 0;
-		end
-		else
+		score <= 0;
+		frameCnt <= 0;
+	end
+	else
+	begin
+		if(!pause)
 		begin
 			frameCnt <= frameCnt + 1;
 			if(frameCnt == `scoreaddperiod)

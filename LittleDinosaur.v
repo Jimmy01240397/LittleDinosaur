@@ -19,10 +19,11 @@ readImage(.clock(clock), .image(image));
 
 update_player(.clk3(clk3), .reset(rst), .pause(collide), .jump(jump), .player(gamedata[0 +: `datalen]));
 
-display(.clock(clk1), .reset(rst), .image(image), .gamedata(gamedata), .vga(vga));
-enemy(.clk3(clk3), .reset(rst), .pause(collide), .gamedata(gamedata[`datalen +: (`datacount - 1)* `datalen]));
+enemy(.clk3(clk3), .reset(rst), .pause(collide), .gamedata(gamedata[1*`datalen +: (`datacount - 1)* `datalen]));
 
 calc_score(.clk3(clk3), .reset(rst), .pause(collide), .score(score));
 collide(.clk3(clk3), .gamedata(gamedata), .collide(collide));
+
+display(.clock(clk1), .reset(rst), .image(image), .gamedata(gamedata), .vga(vga));
 
 endmodule 
