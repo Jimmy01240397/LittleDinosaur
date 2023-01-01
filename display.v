@@ -103,21 +103,17 @@ begin
 					x >= gamedata[i*`datalen+`dataxstart +: `dataxlen] && 
 					x < gamedata[i*`datalen+`dataxstart +: `dataxlen] + gamedata[i*`datalen+`datawidthstart +: `datawidthlen] && 
 					y >= gamedata[i*`datalen+`dataystart +: `dataylen] && 
-					y < gamedata[i*`datalen+`dataystart +: `dataylen] + gamedata[i*`datalen+`dataheigthstart +: `dataheigthlen])
+					y < gamedata[i*`datalen+`dataystart +: `dataylen] + gamedata[i*`datalen+`dataheightstart +: `dataheightlen])
 				begin
 				
 					oldx = `imagewidth - (x - gamedata[i*`datalen+`dataxstart +: `dataxlen]) * `imagewidth / gamedata[i*`datalen+`datawidthstart +: `datawidthlen] - 1;
-					oldy = (y - gamedata[i*`datalen+`dataystart +: `dataylen]) * `imageheight / gamedata[i*`datalen+`dataheigthstart +: `dataheigthlen];
+					oldy = (y - gamedata[i*`datalen+`dataystart +: `dataylen]) * `imageheight / gamedata[i*`datalen+`dataheightstart +: `dataheightlen];
 					vga[11:0] = (image[(gamedata[i*`datalen+`datatypestart +: `datatypelen] - 1)*`imagewidth*`imageheight+oldy*`imagewidth + oldx] ? ~(12'd0) : 12'd0);
 				
 					//vga[11:0] = 12'd0;
 					check = 1;
 					disable loop;
 				end
-			end
-			else
-			begin
-				disable loop;
 			end
 		end
 		
