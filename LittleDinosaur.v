@@ -1,36 +1,41 @@
-module LittleDinosaur(cnt, rst, out);
+`include "define.v"
 
-input cnt, rst;
+module LittleDinosaur(clock, rst, vga);
+input clock, rst;
 
-output reg [79:0]out;
+//output [6:0]seven;
+output [13:0]vga;
 
-/* 
- * read Image
-*/
+reg [`datalen*`datacount-1:0] gamedata;
+wire [`imagecount*`imagewidth*`imageheight-1:0]image;
+wire clk1, clk2, clk3;
 
-reg [31:0]indexDinosourImg;
-reg [31:0]indexCactusImg;
+//wire [3:0] test;
 
-reg [79:0]dinosourImg[0:40]; // need to set image size
-reg [79:0]cactusImg[0:40];   // need to set image size
+Freq_Div(.clock(clock), .clk1(clk1), .clk2(clk2), .clk3(clk3));
 
-initial
-	begin
-		indexDinosourImg = 0;
-		indexCactusImg = 0;
-		$readmemb("./imageConverter/dinosaur.txt", dinosourImg);
-		$readmemb("./imageConverter/dinosaur.txt", cactusImg);
-	end
+readImage(.clock(clock), .image(image));
 
-always @(posedge cnt)
+always@(posedge clock)
 begin
-	out = dinosourImg[indexDinosourImg]; // here is tmperatory output for test
-	indexDinosourImg = indexDinosourImg + 1;
-	indexCactusImg = indexCactusImg + 1;
+	gamedata[0*`datalen+`datatypestart +: `datatypelen] = 1;
+	gamedata[0*`datalen+`dataxstart +: `dataxlen] = 10;
+	gamedata[0*`datalen+`dataystart +: `dataylen] = 400;
+	gamedata[0*`datalen+`datawidthstart +: `datawidthlen] = 40;
+	gamedata[0*`datalen+`dataheigthstart +: `dataheigthlen] = 80;
+	
+	gamedata[1*`datalen+`datatypestart +: `datatypelen] = 2;
+	gamedata[1*`datalen+`dataxstart +: `dataxlen] = 300;
+	gamedata[1*`datalen+`dataystart +: `dataylen] = 150;
+	gamedata[1*`datalen+`datawidthstart +: `datawidthlen] = 40;
+	gamedata[1*`datalen+`dataheigthstart +: `dataheigthlen] = 80;
+	
+	gamedata[2*`datalen+`datatypestart +: `datatypelen] = 0;
 end
 
-/* 
- * read Image end
-*/
+//sevenDisplay(.test(test), .out(seven));
 
-endmodule
+display(.clock(clk1), .reset(rst), .image(image), .gamedata(gamedata), .vga(vga));
+
+
+endmodule 
