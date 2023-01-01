@@ -1,0 +1,54 @@
+m255
+K4
+z2
+13
+!s112 1.1
+!i10d 8192
+!i10e 25
+!i10f 100
+cModel Technology
+Z0 dX:/LittleDinosaur/simulation/qsim
+vLittleDinosaur
+Z1 !s110 1672308957
+!i10b 1
+!s100 b16SK<Tgi3ed;[]hmFYgh1
+IH9Qg23U8Ym5_g^hWnW9Zk0
+Z2 VDg1SIo80bB@j0V0VzS_@n1
+R0
+w1672308955
+8LittleDinosaur.vo
+FLittleDinosaur.vo
+L0 31
+Z3 OV;L;10.5b;63
+r1
+!s85 0
+31
+Z4 !s108 1672308957.000000
+!s107 LittleDinosaur.vo|
+!s90 -work|work|LittleDinosaur.vo|
+!i113 1
+Z5 o-work work
+Z6 tCvgOpt 0
+n@little@dinosaur
+vLittleDinosaur_vlg_vec_tst
+R1
+!i10b 1
+!s100 PJb[Ii1O=IzJh>2:fQ1P02
+I>>aK18e?eIc=m1__SKb5f0
+R2
+R0
+w1672308953
+8Waveform.vwf.vt
+FWaveform.vwf.vt
+L0 29
+R3
+r1
+!s85 0
+31
+R4
+!s107 Waveform.vwf.vt|
+!s90 -work|work|Waveform.vwf.vt|
+!i113 1
+R5
+R6
+n@little@dinosaur_vlg_vec_tst
