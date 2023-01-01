@@ -6,7 +6,7 @@ reg meta1, meta2;
 
 assign random = meta2;
 
-always@(posedge clk or negedge reset)
+always@(posedge clk)
 begin
     meta1 <= stage[1];
     meta2 <= meta1;

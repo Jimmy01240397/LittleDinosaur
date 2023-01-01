@@ -83,4 +83,7 @@ set_global_assignment -name VERILOG_FILE display.v
 set_global_assignment -name VERILOG_FILE define.v
 set_global_assignment -name VERILOG_FILE readImage.v
 set_global_assignment -name VECTOR_WAVEFORM_FILE Waveform.vwf
+set_global_assignment -name VERILOG_FILE collide.v
+set_global_assignment -name VERILOG_FILE enemy.v
+set_global_assignment -name VERILOG_FILE calc_score.v
 set_instance_assignment -name PARTITION_HIERARCHY root_partition -to | -section_id Top

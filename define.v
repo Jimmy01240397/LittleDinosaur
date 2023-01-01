@@ -42,6 +42,7 @@
 	`define datalen (`dataheightstart+`dataheightlen)
 	
 	`define scorelen 13
+	`define scoreaddperiod 10
 
 	`define enemymovementperframe 1
 	`define enemywidthinit 40
