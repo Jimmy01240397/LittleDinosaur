@@ -62,7 +62,6 @@ begin
 		
 		
 		//dot matrix'd
-		row_count <= row_count + 1;
 		case (row_count)
 			0: dot_row <= 8'b01111111;
          1: dot_row <= 8'b10111111;
@@ -76,6 +75,10 @@ begin
 		if(row_count < digitK)	
 		begin
 			dot_col <= 8'b11111111;
+		end
+		else if(row_count > digitK)	
+		begin
+			dot_col <= 8'b00000000;
 		end
 		else
 		begin
@@ -91,6 +94,7 @@ begin
 				default: dot_col <= 8'b00000000;
 			endcase
 		end
+		row_count <= row_count + 1;
 	end
 end
 
