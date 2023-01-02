@@ -2,7 +2,7 @@ module calc_score(clk3, reset, pause, start, score);
 input clk3, reset, pause, start;
 output reg [`scorelen : 0] score;
 
-reg frameCnt;
+integer frameCnt;
 
 always@(posedge clk3 or negedge reset)
 begin
