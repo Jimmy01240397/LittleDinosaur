@@ -41,7 +41,7 @@ random(.clock(clk3), .reset(rst), .start(start), .randoms(randoms), .testlist(te
 
 integer i;
 
-always
+/*always
 begin
 	for(i = 0; i < 6; i = i + 1)
 	begin
@@ -66,8 +66,7 @@ begin
 			default:seven1[i * 7 +: 7]=7'b1111111;
 		endcase
 	end
-end
-
+end*/
 
 
 collide(.reset(rst), .gamedata(gamedata), .collide(collide));
@@ -75,9 +74,9 @@ collide(.reset(rst), .gamedata(gamedata), .collide(collide));
 update_player(.clk3(clk3), .reset(rst), .pause(collide), .start(start), .jump(jump), .player(gamedata[0 +: `datalen]), .test(test2));
 enemy(.clk3(clk3), .reset(rst), .pause(collide), .start(start), .gamedata(gamedata[1*`datalen +: (`datacount - 1)* `datalen]));
 
-//calc_score(.clk3(clk3), .reset(rst), .pause(collide), .start(start), .score(score));
+calc_score(.clk3(clk3), .reset(rst), .pause(collide), .start(start), .score(score));
 
 display(.clock(clk1), .reset(rst), .image(image), .gamedata(gamedata), .vga(vga));
-//score(.clk2(clk2), .reset(rst), .score(score), .seven1(seven1), .seven2(seven2), .dot_col(dot_col), .dot_row(dot_row));
+score(.clk2(clk2), .reset(rst), .score(score), .seven1(seven1), .seven2(seven2), .dot_col(dot_col), .dot_row(dot_row));
 
 endmodule 

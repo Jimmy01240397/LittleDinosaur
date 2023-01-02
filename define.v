@@ -4,7 +4,7 @@
 
 	`define vgaHz 25000000
 	`define dotHz 10000
-	`define gameHz 1
+	`define gameHz 60
 	
 	`define randomNUMlen 4
 	`define randomlistCount (1<<`randomNUMlen)
@@ -47,7 +47,7 @@
 	`define datalen (`dataheightstart+`dataheightlen)
 	
 	`define scorelen 13
-	`define scoreaddperiod 10
+	`define scoreaddperiod 1
 
 	`define enemymovementperframe 5
 	`define enemywidthinit 40
