@@ -7,7 +7,7 @@
 	`define gameHz 60
 	
 	`define randomNUMlen 4
-	`define randomCount 2
+	`define randomCount 1
 	
 	`define screenwidth 640
 	`define screenheight 480
