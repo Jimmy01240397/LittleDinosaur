@@ -33,31 +33,32 @@ end
 output reg test;
 //assign test = jumped;
 
-always@(negedge jump or posedge clk3 or negedge reset)
+always@(posedge clk3 or negedge reset)
 begin
 	if(!reset)
 	begin
 		floating <= 0;
 		count <= 0;
 	end
-	else if(!jump)
+	else if(!jump && !pause && start)
 	begin
-		if(jumped != jump && !pause && start && !floating)
+		if(jumped != jump && !floating)
 		begin
 			floating <= 1;
 			count <= 0;
 		end
-		else if(clk3 && clk3ed != clk3 && floating)
+		else if(floating)
 		begin
-			if(count>=(`gameHz*`jumpDuration))
+			// floating count
+			if(count >= (`gameHz * `jumpDuration))
 			begin
-				floating<=0;
+				floating <= 0;
 				count <= 0;
 			end
 			else
 			begin
-				floating<=floating;
-				count<=count+1;
+				floating <= floating;
+				count <= count+1;
 			end
 			test <= 1;
 		end
@@ -70,17 +71,18 @@ begin
 	end
 	else
 	begin
-		if(clk3 && clk3ed != clk3 && floating)
+		// floating count
+		if(floating)
 		begin
-			if(count>=(`gameHz*`jumpDuration))
+			if(count >= (`gameHz * `jumpDuration) - 1)
 			begin
-				floating<=0;
+				floating <= 0;
 				count <= 0;
 			end
 			else
 			begin
-				floating<=floating;
-				count<=count+1;
+				floating <= floating;
+				count <= count+1;
 			end
 		end
 		else
@@ -90,10 +92,9 @@ begin
 		end
 	end
 		
-	if(!jump || clk3 || !reset)
+	if(clk3 || !reset)
 	begin
 		jumped <= jump;
-		clk3ed <= clk3;
 	end
 end
 endmodule 
