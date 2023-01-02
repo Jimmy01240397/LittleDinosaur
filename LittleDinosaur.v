@@ -43,10 +43,10 @@ integer i;
 
 always
 begin
-	//case(randoms[0*`randomNUMlen +: `randomNUMlen] % 16)
 	for(i = 0; i < 6; i = i + 1)
 	begin
-		case(testlist[i*`randomNUMlen +: `randomNUMlen])
+		case(randoms[0*`randomNUMlen +: `randomNUMlen] % 16)
+		//case(testlist[i*`randomNUMlen +: `randomNUMlen])
 			0:seven1[i * 7 +: 7]=7'b1000000;
 			1:seven1[i * 7 +: 7]=7'b1111001;
 			2:seven1[i * 7 +: 7]=7'b0100100;
