@@ -4,7 +4,10 @@
 
 	`define vgaHz 25000000
 	`define dotHz 10000
-	`define gameHz 60
+	`define gameHz 1
+	
+	`define randomNUMlen 4
+	`define randomCount 2
 	
 	`define screenwidth 640
 	`define screenheight 480
@@ -12,19 +15,20 @@
 	`define screenheightnumlen 30
 
 	`define nulltype 0
-	`define playertype 1
-	`define enemytype 2
+	`define titletype 1
+	`define playertype 2
+	`define enemytype 3
 	
-	`define imagecount 2
+	`define imagecount 3
 	`define imagewidth 80
 	`define imageheight 40
 	
 	`define playerwidth 40
 	`define playerheight 80
 	`define playerxPos 80
-	`define playeryPos (`screenwidth - `playerheight - 80)
+	`define playeryPos (`screenheight - `playerheight - 80)
 	`define playerFloatingPos (`playeryPos - 100)
-	`define jumpDuration 2
+	`define jumpDuration 1
 	
 	`define datacount 10
 	
@@ -44,8 +48,13 @@
 	`define scorelen 13
 	`define scoreaddperiod 10
 
-	`define enemymovementperframe 1
+	`define enemymovementperframe 5
 	`define enemywidthinit 40
 	`define enemyheightinit 80
 	`define enemyyPos `playeryPos
+	
+	`define titlewidth (`screenwidth - 100)
+	`define titleheight (`screenheight - 100)
+	`define titlexPos 50
+	`define titleyPos 50
 `endif

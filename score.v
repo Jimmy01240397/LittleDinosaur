@@ -1,6 +1,6 @@
 module score(clk2, reset, score, seven1, seven2, dot_col, dot_row);
 input clk2, reset; 
-input [12:0]score;
+input [`scorelen:0]score;
 output [6:0]seven1;
 output [6:0]seven2;
 output [7:0]dot_col; 

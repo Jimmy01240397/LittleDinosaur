@@ -1,5 +1,5 @@
-module calc_score(clk3, reset, pause, score);
-input clk3, reset, pause;
+module calc_score(clk3, reset, pause, start, score);
+input clk3, reset, pause, start;
 output reg [`scorelen : 0] score;
 
 reg frameCnt;
@@ -13,7 +13,7 @@ begin
 	end
 	else
 	begin
-		if(!pause)
+		if(!pause && start)
 		begin
 			frameCnt <= frameCnt + 1;
 			if(frameCnt == `scoreaddperiod)
