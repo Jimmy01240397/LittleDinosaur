@@ -19,6 +19,7 @@ begin
 			if(frameCnt == `scoreaddperiod)
 			begin
 				score <= score + 1;
+				frameCnt <= 0;
 			end
 		end
 	end
