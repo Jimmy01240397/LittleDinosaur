@@ -1,28 +1,30 @@
 `include "define.v"
-module update_player(clk3,reset,pause,start,jump,player, test);
+module update_player(clk3,reset,pause,start,jump,player);
 input clk3, reset, pause, start, jump;
 output reg [`datalen - 1:0] player;
 reg floating = 0;
 reg jumped = 1;
 reg clk3ed = 0;
 reg [30:0] count;
+integer index;
 
 always
 begin
 	if(start)
 	begin
-		player[`datatypestart +: `datatypelen]=`playertype; //object type
 		player[`dataxstart +: `dataxlen]=`playerxPos;//player_position_x
 		player[`datawidthstart +: `datawidthlen]=`playerwidth;//player_width
 		player[`dataheightstart +: `dataheightlen]=`playerheight;//player_height
-		if(floating)
-			player[`dataystart +: `dataylen]=`playerFloatingPos;//jump
+		
+		if(count < (`gameHz * `jumpDuration / 4))
+			player[`dataystart +: `dataylen]=`playeryPos - (`playerFloatingMax / (`gameHz * `jumpDuration / 4) * count);//player_position_y
+		else if (count > (`gameHz * `jumpDuration / 4 * 3))
+			player[`dataystart +: `dataylen]=`playeryPos - `playerFloatingMax + (`playerFloatingMax / (`gameHz * `jumpDuration / 4) * (count - (`gameHz * `jumpDuration / 4 * 3)));//player_position_y
 		else
-			player[`dataystart +: `dataylen]=`playeryPos;//player_position_y
+			player[`dataystart +: `dataylen]=`playeryPos - `playerFloatingMax;
 	end
 	else
 	begin
-		player[`datatypestart +: `datatypelen]=`titletype; //object type
 		player[`dataxstart +: `dataxlen]=`titlexPos;//title_position_x
 		player[`dataystart +: `dataylen]=`titleyPos;//title_position_y
 		player[`datawidthstart +: `datawidthlen]=`titlewidth;//title_width
@@ -30,70 +32,65 @@ begin
 	end
 end
 
-output reg test;
-//assign test = jumped;
-
 always@(posedge clk3 or negedge reset)
 begin
 	if(!reset)
 	begin
+		index <= 0;
 		floating <= 0;
 		count <= 0;
+		jumped <= jump;
 	end
-	else if(!jump && !pause && start)
+	else 
 	begin
-		if(jumped != jump && !floating)
+		if(!pause && start)
 		begin
-			floating <= 1;
-			count <= 0;
-		end
-		else if(floating)
-		begin
-			// floating count
-			if(count >= (`gameHz * `jumpDuration))
+			if(!jump && jumped != jump && !floating)
 			begin
-				floating <= 0;
+				floating <= 1;
 				count <= 0;
+			end
+			else if(jump && jumped != jump && floating)
+			begin
+				floating <= floating;
+				count <= (`gameHz * `jumpDuration / 4 * 3);
+			end
+			else if(floating)
+			begin 
+				// floating count
+				if(count >= (`gameHz * `jumpDuration))
+				begin
+					floating <= 0;
+					count <= 0;
+				end
+				else
+				begin
+					floating <= floating;
+					count <= count+1;
+				end
 			end
 			else
 			begin
 				floating <= floating;
-				count <= count+1;
+				count <= count;
 			end
-			test <= 1;
+			player[`datatypestart +: `datatypelen]<=(`playerstartindex + (index / `playerimageaddperiod)); //object type
+			index <= (index + 1) % ((`playerendindex - `playerstartindex + 1) * `playerimageaddperiod);
 		end
 		else
 		begin
-			floating <= floating;
-			count <= count;
-			test <= 0;
-		end
-	end
-	else
-	begin
-		// floating count
-		if(floating)
-		begin
-			if(count >= (`gameHz * `jumpDuration) - 1)
+			if(!start)
 			begin
-				floating <= 0;
-				count <= 0;
+				player[`datatypestart +: `datatypelen]<=`titletype; //object type
 			end
 			else
 			begin
-				floating <= floating;
-				count <= count+1;
+				player[`datatypestart +: `datatypelen]<=player[`datatypestart +: `datatypelen]; //object type
 			end
-		end
-		else
-		begin
+			index <= index;
 			floating <= floating;
 			count <= count;
 		end
-	end
-		
-	if(clk3 || !reset)
-	begin
 		jumped <= jump;
 	end
 end
