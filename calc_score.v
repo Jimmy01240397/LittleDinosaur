@@ -1,8 +1,8 @@
-module calc_score(clk3, reset, pause, score);
-input clk3, reset, pause;
-output reg [`scorelen : 0] score;
+module calc_score(clk3, reset, pause, start, score);
+input clk3, reset, pause, start;
+output reg [`scorelen-1 : 0] score;
 
-reg frameCnt;
+integer frameCnt;
 
 always@(posedge clk3 or negedge reset)
 begin
@@ -13,12 +13,13 @@ begin
 	end
 	else
 	begin
-		if(!pause)
+		if(!pause && start)
 		begin
 			frameCnt <= frameCnt + 1;
 			if(frameCnt == `scoreaddperiod)
 			begin
-				score <= score + 1;
+				score <= (((score + 1) / 800) % 8) * 800 + (((score + 1) / 100) % 8) * 100 + (((score + 1) / 10) % 10) * 10 + (((score + 1) / 1) % 10) * 1;
+				frameCnt <= 0;
 			end
 		end
 	end

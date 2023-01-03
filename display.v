@@ -54,7 +54,9 @@ begin
         hcount <=  hcount + 1'b1  ;                
 		  
 	 if(clock)
-			vga[12] =   (hcount < C_H_SYNC_PULSE) ? 1'b0 : 1'b1    ; 
+		 vga[12] =   (hcount < C_H_SYNC_PULSE) ? 1'b0 : 1'b1    ; 
+	 else
+		 vga[12] =   vga[12]    ; 
 end                
 
 
@@ -70,7 +72,9 @@ begin
         vcount <=  vcount ;
 		
 	 if(clock)
-			vga[13] =   (vcount < C_V_SYNC_PULSE) ? 1'b0 : 1'b1    ; 
+		 vga[13] =   (vcount < C_V_SYNC_PULSE) ? 1'b0 : 1'b1    ; 
+	 else
+		 vga[13] =   vga[13]    ; 
 end                
 
 assign W_active_flag =  (hcount >= (C_H_SYNC_PULSE + C_H_BACK_PORCH                  ))  &&
