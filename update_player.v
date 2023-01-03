@@ -50,7 +50,7 @@ begin
 				floating <= 1;
 				count <= 0;
 			end
-			else if(jump && jumped != jump && floating)
+			else if(jump && jumped != jump && floating && count <= (`gameHz * `jumpDuration / 4 * 3))
 			begin
 				floating <= floating;
 				count <= (`gameHz * `jumpDuration / 4 * 3);
